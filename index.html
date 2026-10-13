@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Presskit 3D, plan de trabajo y receta de canción de Alí Ochoa: lo-fi, R&B y hip hop para hablarle a una persona.">
+<title>Alí Ochoa</title>
+<style>
+:root {
+  /* Concepto: estudio de noche. Verde oscuro de fondo, naranja tenue como luz de lámpara, marrón de madera. */
+  --bg: #f3ece3; --surface: #fffaf3; --fg: #1d1a16; --muted: #62594f; --line: #d9cdbd;
+  --orange: #b8662d; --green: #2a5a43; --brown: #6b4430; --orange-soft: #f3dcc6;
+  --display: "Fraunces", Georgia, serif; --body: "DM Sans", system-ui, sans-serif; --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --bg: #0b110d; --surface: #131c16; --fg: #efe6dc; --muted: #a2998c; --line: #26352b; --orange: #e0985f; --green: #5b9a78; --brown: #b07a54; --orange-soft: #2c2016; color-scheme: dark; }
+}
+:root[data-theme="dark"] { --bg: #0b110d; --surface: #131c16; --fg: #efe6dc; --muted: #a2998c; --line: #26352b; --orange: #e0985f; --green: #5b9a78; --brown: #b07a54; --orange-soft: #2c2016; color-scheme: dark; }
+html { color-scheme: light dark; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 16px; line-height: 1.6; padding-inline: 16px; padding-block: 0 64px; overflow-x: clip; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+#gl { position: fixed; inset: 0; width: 100%; height: 100%; display: block; z-index: 0; }
+.wrap { position: relative; z-index: 1; max-width: 980px; margin-inline: auto; }
+.tag { font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; }
+header.top, section.panel { background: color-mix(in srgb, var(--bg) 80%, transparent); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border: 1px solid var(--line); border-radius: 14px; }
+header.top { margin-top: 24px; padding: 28px clamp(16px, 4vw, 40px); }
+header.top h1 { font-weight: 800; font-size: clamp(2.4rem, 9vw, 4.6rem); line-height: 1; margin: 12px 0 0; }
+header.top h1 em { font-style: italic; font-weight: 400; color: var(--orange); }
+.sub { color: var(--muted); max-width: 60ch; margin: 16px 0 0; }
+.scrolly { position: relative; height: 560vh; width: 100vw; margin-left: calc(50% - 50vw); }
+.scrolly .pin { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+.chap { position: absolute; inset-inline: 0; bottom: 0; padding: 72px max(16px, calc(50vw - 490px)) 40px; background: linear-gradient(to top, rgba(7,12,9,.93), rgba(7,12,9,.6) 60%, transparent); color: #efe6dc; opacity: 0; transform: translateY(16px); transition: opacity .15s, transform .15s; pointer-events: none; }
+.chap.on { opacity: 1; transform: none; transition: opacity .4s .15s, transform .4s .15s; }
+.chap h2 { color: #efe6dc; margin: 6px 0 8px; font-size: clamp(1.25rem, 4.4vw, 2.1rem); max-width: 24ch; }
+.chap p { color: #bdb3a6; max-width: 54ch; margin: 0; }
+.chap .tag { color: #e0985f; }
+.scrolly.nogl { height: auto; background: #0b110d; } .scrolly.nogl .pin { position: relative; height: auto; }
+.scrolly.nogl .chap { position: static; opacity: 1; transform: none; background: none; }
+section.panel { margin-top: 56px; padding: 32px clamp(16px, 4vw, 40px); }
+.sectitle { font-weight: 800; font-size: clamp(1.8rem, 6vw, 3rem); line-height: 1.05; margin: 0 0 24px; color: var(--orange); }
+#p-song .sectitle { color: var(--green); } #p-kit .sectitle { color: var(--brown); }
+h2 { font-size: clamp(1.25rem, 4vw, 1.7rem); margin: 48px 0 16px; }
+.sectitle + p, .sectitle + h2 { margin-top: 0; }
+h3 { font-family: var(--body); font-weight: 700; font-size: 1.05rem; margin: 0 0 4px; }
+p { margin: 0 0 12px; max-width: 70ch; }
+.note { font-size: .9rem; color: var(--muted); border-left: 3px solid var(--orange); padding: 4px 0 4px 12px; margin: 16px 0; max-width: 70ch; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 16px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 20px; min-width: 0; }
+.card.o { border-top: 4px solid var(--orange); } .card.g { border-top: 4px solid var(--green); } .card.b { border-top: 4px solid var(--brown); }
+.card ul { margin: 8px 0 0; padding-left: 18px; } .card li { margin-bottom: 4px; }
+.phase { display: grid; grid-template-columns: 110px 1fr; gap: 8px 24px; padding-block: 24px; border-top: 1px solid var(--line); }
+.phase .when { font-family: var(--mono); font-size: 13px; color: var(--orange); }
+.phase .when b { display: block; color: var(--fg); font-family: var(--display); font-size: 1.05rem; }
+.phase ul { margin: 8px 0; padding-left: 18px; } .phase li { margin-bottom: 4px; }
+.done { font-size: .9rem; color: var(--muted); } .done strong { color: var(--fg); }
+@media (max-width: 560px) { .phase { grid-template-columns: 1fr; } }
+.tablewrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; min-width: 520px; font-size: .95rem; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.todo { background: var(--orange-soft); padding: 1px 6px; border-radius: 3px; font-size: .9em; }
+.themes { display: flex; gap: 8px; flex-wrap: wrap; margin: 8px 0 16px; }
+.chip { border: 1px solid var(--line); border-radius: 999px; padding: 4px 14px; font-size: .9rem; background: var(--surface); }
+.swatches { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
+.sw { width: 96px; } .sw i { display: block; height: 56px; border-radius: 4px; border: 1px solid var(--line); margin-bottom: 4px; } .sw span { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+dl { margin: 0; } dt { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-top: 12px; } dd { margin: 2px 0 0; }
+.r { will-change: transform, opacity; transform-origin: 50% 100%; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600&family=Fraunces:ital,wght@0,400;0,800;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+</head>
+<body>
+<canvas id="gl" aria-hidden="true"></canvas>
+<div class="wrap">
+<header class="top">
+  <p class="tag">Lo-fi · R&amp;B · hip hop</p>
+  <h1>Alí <em>Ochoa</em></h1>
+  <p class="sub">Plan de trabajo y presskit. Canciones como cartas a una persona: crecer, resistir y cambiar.</p>
+</header>
+
+<section class="scrolly" id="scrolly" aria-label="Recorrido 3D por el universo de Alí Ochoa">
+  <div class="pin" id="pin">
+    <div class="chap on" data-i="0"><span class="tag">Entra</span><h2>Música para hablarle a una persona</h2><p>Baja para recorrer la escena.</p></div>
+    <div class="chap" data-i="1"><span class="tag">Lo que lo motiva</span><h2>Drake, Mac Miller, Catriel y Paco Amoroso, Horus</h2><p>Cuatro discos que marcan el tono: intimidad, melodía y ambición.</p></div>
+    <div class="chap" data-i="2"><span class="tag">Sonido</span><h2>Lo-fi suave o saturado, R&amp;B con texturas</h2><p>Lofi drill, R&amp;B dancehall, lofi dancehall y lofi hip hop, con espacio para la rítmica.</p></div>
+    <div class="chap" data-i="3"><span class="tag">Composición</span><h2>Intro, desarrollo y conclusión, como una película</h2><p>Cada canción se cuenta hablándole a una persona.</p></div>
+    <div class="chap" data-i="4"><span class="tag">Plan</span><h2>12 semanas hasta el primer single</h2><p>Sigue bajando: plan de trabajo, receta de canción y presskit.</p></div>
+  </div>
+</section>
+
+<section class="panel" id="p-plan" aria-label="Plan de trabajo">
+  <h1 class="sectitle">Plan de trabajo</h1>
+  <p>Alí Ochoa construye un repertorio de lo-fi, R&amp;B y hip hop sobre experiencias vividas, autosuperación y melancolía. El plan lo convierte en canciones, una marca visual y un primer lanzamiento en 12 semanas.</p>
+  <p class="note">Suposición: el plazo de 12 semanas y las tres canciones iniciales son una propuesta mía, porque no recibí fechas ni cantidad de temas. Se ajustan cuando lo confirmes.</p>
+
+  <div class="grid2">
+    <article class="card o"><span class="tag">Sonido</span><h3>Beats y texturas</h3><ul>
+      <li>Beats: lo-fi, hip hop, rock pop, pop funk</li>
+      <li>Baladas, lofi suave o saturado, R&amp;B con texturas</li>
+      <li>Espacio para la rítmica</li></ul></article>
+    <article class="card g"><span class="tag">Géneros a enfocar</span><h3>Cuatro líneas</h3><ul>
+      <li>Lofi drill</li><li>R&amp;B dancehall</li><li>Lofi dancehall</li><li>Lofi hip hop</li></ul></article>
+    <article class="card b"><span class="tag">Voz</span><h3>Referencias de canto</h3><ul>
+      <li>Mac Miller</li><li>Ali Gatie</li><li>Chris Lebron</li></ul></article>
+  </div>
+
+  <h2>Fases</h2>
+  <div class="phase"><div class="when"><b>Fase 0</b>Semana 1</div><div><h3>Definición</h3><ul>
+    <li>Confirmar nombre artístico, ciudad, idioma y público.</li>
+    <li>Acordar BPM y tonalidades por género (una tabla corta por cada línea).</li>
+    <li>Reunir las referencias con una nota de qué se toma de cada una.</li>
+    <li>Confirmar que 8PMusic (8pmusic_) es la marca artística y cómo se escribe.</li></ul>
+    <p class="done"><strong>Listo cuando:</strong> existe un documento de una página con nombre, BPM, tonos, idioma y público.</p></div></div>
+  <div class="phase"><div class="when"><b>Fase 1</b>Semanas 2 a 3</div><div><h3>Sonido y plantilla</h3><ul>
+    <li>Plantilla de proyecto con una pista de ejemplo por línea de género.</li>
+    <li>Paleta: lo-fi suave y saturado, texturas R&amp;B, ritmos dancehall y drill con espacio.</li>
+    <li>Cadena vocal base: cálida e íntima, cercana a Mac Miller y Ali Gatie.</li>
+    <li>Banco propio de samples, sin herramientas de pago.</li></ul>
+    <p class="done"><strong>Listo cuando:</strong> un beat de 32 compases suena con la paleta y la cadena vocal.</p></div></div>
+  <div class="phase"><div class="when"><b>Fase 2</b>Semanas 3 a 7</div><div><h3>Escritura y producción de 3 canciones</h3><ul>
+    <li>Guion de cada canción como carta a una persona, con intro, desarrollo y conclusión.</li>
+    <li>Un tema por eje: resiliencia, ambición y melancolía o cambio.</li>
+    <li>Maqueta, versión demo, grabación, edición vocal, mezcla y master.</li></ul>
+    <p class="done"><strong>Listo cuando:</strong> 3 canciones masterizadas con letra final.</p></div></div>
+  <div class="phase"><div class="when"><b>Fase 3</b>Semanas 5 a 9</div><div><h3>Marca y contenido</h3><ul>
+    <li>Identidad visual: naranja tenue, verde oscuro y marrón.</li>
+    <li>Sesión de fotos con streetwear elegante.</li>
+    <li>Cortes verticales de 15 a 30 segundos de cada canción.</li>
+    <li>Presskit completo, con fotos y datos reales.</li></ul>
+    <p class="done"><strong>Listo cuando:</strong> fotos, logo, banner y 9 cortes verticales listos.</p></div></div>
+  <div class="phase"><div class="when"><b>Fase 4</b>Semanas 9 a 12</div><div><h3>Lanzamiento</h3><ul>
+    <li>Un single cada 2 semanas, con teaser previo.</li>
+    <li>Distribución a plataformas y perfiles listos.</li>
+    <li>Revisar resultados tras cada single y ajustar el siguiente.</li></ul>
+    <p class="done"><strong>Listo cuando:</strong> el primer single está publicado y el segundo tiene fecha.</p></div></div>
+
+  <h2>Preguntas abiertas</h2>
+  <div class="card"><ul>
+    <li>Nombre artístico, ciudad e idioma de las letras.</li>
+    <li>Si 8PMusic es la marca o el sello, y cómo se escribe.</li>
+    <li>La referencia de Drake, escrita "ACTII DETE Q8": ¿es "Act II: Date @ 8"?</li>
+    <li>Quién produce y mezcla, y cuánto se graba en casa.</li>
+    <li>Cuántas canciones hay ya escritas o grabadas.</li>
+    <li>Fotos propias de prensa (por ahora solo hay arte y avatar).</li>
+    <li>Presupuesto y plazo real de lanzamiento.</li></ul></div>
+</section>
+
+<section class="panel" id="p-song" aria-label="Receta de canción">
+  <h1 class="sectitle">Receta de canción</h1>
+  <p>Cada canción se escribe como una escena de película, dirigida a una persona concreta, hablándole en segunda persona.</p>
+  <h2>Intro, desarrollo y conclusión</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Acto</th><th>Qué cuenta</th><th>Cómo suena</th></tr></thead>
+    <tbody>
+      <tr><td>Intro</td><td>La escena: dónde estamos y a quién le hablo.</td><td>Lo-fi suave, espacio, textura R&amp;B, voz cercana.</td></tr>
+      <tr><td>Desarrollo</td><td>Lo que viví, lo que costó y lo que cambió: disciplina, ambición, melancolía.</td><td>Entra la rítmica (drill, dancehall o boom bap), más saturación.</td></tr>
+      <tr><td>Conclusión</td><td>Lo que aprendí: madurez, resiliencia, evolución.</td><td>Vuelve el espacio, con la melodía más abierta.</td></tr>
+    </tbody></table></div>
+  <p class="note">No recibí una estructura de compases, así que no la fijé. Si ya tienes una (por ejemplo, largo de intro, versos y coros), la agrego.</p>
+  <h2>Tres temas para empezar</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Eje</th><th>A quién le hablo</th><th>Género sugerido</th><th>Título</th></tr></thead>
+    <tbody>
+      <tr><td>Resiliencia</td><td>A quien fui cuando quise rendirme</td><td>Lofi hip hop</td><td><span class="todo">por definir</span></td></tr>
+      <tr><td>Ambición</td><td>A quien duda de mí</td><td>Lofi drill</td><td><span class="todo">por definir</span></td></tr>
+      <tr><td>Melancolía y cambio</td><td>A alguien que ya no está</td><td>R&amp;B dancehall</td><td><span class="todo">por definir</span></td></tr>
+    </tbody></table></div>
+  <p class="note">Son ideas para arrancar, no letras. Se reemplazan por las historias que escriba Ali.</p>
+</section>
+
+<section class="panel" id="p-kit" aria-label="Presskit">
+  <h1 class="sectitle">Presskit</h1>
+  <p class="note">Borrador. Los campos marcados <span class="todo">por completar</span> no los inventé: faltan datos reales.</p>
+  <h2>Quién es</h2>
+  <p>Alí Ochoa hace música que mezcla lo-fi, R&amp;B y hip hop, con baladas, texturas y espacio para la rítmica. Canta experiencias vividas, autosuperación y melancolía, como si le hablara a una persona.</p>
+  <div class="card o"><dl>
+    <dt>Nombre artístico</dt><dd>Alí Ochoa</dd>
+    <dt>Estilo</dt><dd>Lo-fi, R&amp;B con texturas, hip hop, pop funk, rock pop</dd>
+    <dt>Look</dt><dd>Streetwear elegante</dd>
+    <dt>Bio de Instagram</dt><dd>Cantante y compositor. "El hombre de las alturas". Venezuela y EE. UU.</dd>
+    <dt>Edad, ciudad, biografía corta</dt><dd><span class="todo">por completar</span></dd>
+  </dl></div>
+  <h2>Sonido</h2>
+  <dl>
+    <dt>Géneros</dt><dd>Lofi drill, R&amp;B dancehall, lofi dancehall, lofi hip hop</dd>
+    <dt>Lo que lo motiva</dt><dd>Drake, Mac Miller, Catriel y Paco Amoroso, Horus</dd>
+    <dt>Referencias de canto</dt><dd>Mac Miller, Ali Gatie, Chris Lebron</dd>
+    <dt>Forma de composición</dt><dd>Intro, desarrollo y conclusión, en segunda persona</dd>
+  </dl>
+  <h2>Temas</h2>
+  <div class="themes">
+    <span class="chip">Experiencias vividas</span><span class="chip">Autosuperación</span><span class="chip">Melancolía</span><span class="chip">Crecimiento</span><span class="chip">Disciplina</span><span class="chip">Madurez</span><span class="chip">Evolución</span><span class="chip">Ambición</span><span class="chip">Cambio</span><span class="chip">Resiliencia</span>
+  </div>
+  <h2>Identidad visual</h2>
+  <div class="swatches">
+    <div class="sw"><i style="background:#e0985f"></i><span>Naranja tenue</span></div>
+    <div class="sw"><i style="background:#1f3d2e"></i><span>Verde oscuro</span></div>
+    <div class="sw"><i style="background:#7a4e33"></i><span>Marrón</span></div>
+    <div class="sw"><i style="background:#0b110d"></i><span>Fondo</span></div>
+  </div>
+  <p class="note">Los tonos exactos son propuesta mía a partir de "naranja tenue, verde oscuro y marrón".</p>
+  <h2>Material</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Elemento</th><th>Estado</th></tr></thead>
+    <tbody>
+      <tr><td>Canciones publicadas</td><td><span class="todo">por completar</span></td></tr>
+      <tr><td>Enlaces de streaming</td><td><span class="todo">por completar</span></td></tr>
+      <tr><td>Fotos de prensa</td><td>Pendiente de sesión</td></tr>
+      <tr><td>Logo y banner</td><td>Pendiente de diseño</td></tr>
+    </tbody></table></div>
+  <h2>Contacto</h2>
+  <dl>
+    <dt>Instagram</dt><dd><a href="https://www.instagram.com/8pmusic_/" target="_blank" rel="noopener">@8pmusic_</a></dd>
+    <dt>Enlaces</dt><dd><a href="https://linktr.ee/8pmusica" target="_blank" rel="noopener">linktr.ee/8pmusica</a></dd>
+    <dt>Booking y prensa</dt><dd>8pmusica@gmail.com</dd>
+  </dl>
+</section>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="art.js"></script>
+<script src="scene.js"></script>
+</body>
+</html>
