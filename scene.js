@@ -198,7 +198,7 @@
     var fc = 1 - ease(Math.min(1, cpS / 0.04));
     var vs = (mobile ? 0.8 : 1) * Math.max(0.001, fc); vinyl.scale.setScalar(vs);
     poster.scale.setScalar(Math.max(0.001, (mobile ? 0.55 : 1) * fc));
-    if (!still) { vinyl.rotation.z -= 0.006; shine.rotation.z += 0.012; vinyl.position.y = (mobile ? 0.6 : 0) + Math.sin(t * .8) * 0.06; poster.position.y = (mobile ? -1.5 : 0) + Math.sin(t * .7 + 2) * 0.07; poster.rotation.y = -0.3 + Math.sin(t * .6) * 0.05; dust.rotation.y = t * 0.015; }
+    if (!still) { vinyl.rotation.z -= 0.006; labelDisc.rotation.z = -vinyl.rotation.z; shine.rotation.z += 0.012; vinyl.position.y = (mobile ? 0.6 : 0) + Math.sin(t * .8) * 0.06; poster.position.y = (mobile ? -1.5 : 0) + Math.sin(t * .7 + 2) * 0.07; poster.rotation.y = -0.3 + Math.sin(t * .6) * 0.05; dust.rotation.y = t * 0.015; }
     var inTunnel = tunnel;
     sleeves.visible = orbs.visible = film.visible = !inTunnel;
     sleeveMeshes.forEach(function (g, n) { if (!still) g.position.y = g.userData.by + Math.sin(t * .8 + n) * 0.06; });
